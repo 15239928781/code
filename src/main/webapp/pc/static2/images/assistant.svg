@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>身份图标/助教</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M22.4587931,8.60177124 C24.3356061,14.3779642 21.1745407,20.5819796 15.3983512,22.4587937 C9.62203073,24.3356079 3.41801901,21.1745405 1.54120594,15.3982167 C-0.335607126,9.62202377 2.82545837,3.41800837 8.60177881,1.54119419 C14.3779683,-0.335619993 20.58198,2.82557833 22.4587931,8.60177124 Z" id="path-1"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="身份图标/助教">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Path">
+                <use fill="#FF7D00" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <path stroke-opacity="0.4" stroke="#FFFFFF" stroke-width="1.5" d="M21.7455012,8.83353558 C23.4943159,14.2157929 20.5488314,19.9966893 15.1665866,21.7455019 C9.78419442,23.4943229 4.00330939,20.5488222 2.25449936,15.1664571 C0.505676055,9.7841732 3.45118921,4.00329455 8.83353864,2.25448752 C14.2157637,0.505681249 19.9966787,3.45125413 21.7455012,8.83353558 Z"></path>
+            </g>
+            <rect id="Rectangle" fill-opacity="0.599999964" fill="#FFFFFF" mask="url(#mask-2)" x="9" y="4" width="6" height="8" rx="3"></rect>
+            <path d="M19.606395,19.5285609 C20.9713499,23.7294285 18.6723932,28.2414397 14.4715281,29.6063954 C10.2705678,30.9713512 5.75855928,28.6723931 4.39360432,24.4714303 C3.02864936,20.2705627 5.32760609,15.7585515 9.5285664,14.3935958 C13.7294315,13.02864 18.24144,15.3276933 19.606395,19.5285609 Z" id="Path-Copy" fill-opacity="0.599999964" fill="#FFFFFF" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

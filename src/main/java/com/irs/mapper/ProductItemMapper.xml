@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.ProductItemMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.ProductItem">
+    <id column="i_id" jdbcType="INTEGER" property="iId" />
+    <result column="i_name" jdbcType="VARCHAR" property="iName" />
+    <result column="i_time" jdbcType="VARCHAR" property="iTime" />
+    <result column="i_desc" jdbcType="VARCHAR" property="iDesc" />
+    <result column="r1" jdbcType="VARCHAR" property="r1" />
+    <result column="r2" jdbcType="VARCHAR" property="r2" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="i_pic" jdbcType="VARCHAR" property="iPic" />
+  </resultMap>
+  <select id="selectByiPic" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT *FROM
+product_item WHERE i_pic=#{fileName2}
+  </select>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    i_id, i_name, i_time, i_desc, r1, r2, p_id, i_pic
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.ProductItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_item
+    where i_id = #{iId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product_item
+    where i_id = #{iId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.ProductItemExample">
+    delete from product_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.ProductItem">
+    insert into product_item (i_id, i_name, i_time, 
+      i_desc, r1, r2, p_id, 
+      i_pic)
+    values (#{iId,jdbcType=INTEGER}, #{iName,jdbcType=VARCHAR}, #{iTime,jdbcType=VARCHAR}, 
+      #{iDesc,jdbcType=VARCHAR}, #{r1,jdbcType=VARCHAR}, #{r2,jdbcType=VARCHAR}, #{pId,jdbcType=INTEGER}, 
+      #{iPic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.ProductItem">
+    insert into product_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="iId != null">
+        i_id,
+      </if>
+      <if test="iName != null">
+        i_name,
+      </if>
+      <if test="iTime != null">
+        i_time,
+      </if>
+      <if test="iDesc != null">
+        i_desc,
+      </if>
+      <if test="r1 != null">
+        r1,
+      </if>
+      <if test="r2 != null">
+        r2,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="iPic != null">
+        i_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="iId != null">
+        #{iId,jdbcType=INTEGER},
+      </if>
+      <if test="iName != null">
+        #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iTime != null">
+        #{iTime,jdbcType=VARCHAR},
+      </if>
+      <if test="iDesc != null">
+        #{iDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="r1 != null">
+        #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="iPic != null">
+        #{iPic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.ProductItemExample" resultType="java.lang.Long">
+    select count(*) from product_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update product_item
+    <set>
+      <if test="record.iId != null">
+        i_id = #{record.iId,jdbcType=INTEGER},
+      </if>
+      <if test="record.iName != null">
+        i_name = #{record.iName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iTime != null">
+        i_time = #{record.iTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iDesc != null">
+        i_desc = #{record.iDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r1 != null">
+        r1 = #{record.r1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r2 != null">
+        r2 = #{record.r2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.iPic != null">
+        i_pic = #{record.iPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update product_item
+    set i_id = #{record.iId,jdbcType=INTEGER},
+      i_name = #{record.iName,jdbcType=VARCHAR},
+      i_time = #{record.iTime,jdbcType=VARCHAR},
+      i_desc = #{record.iDesc,jdbcType=VARCHAR},
+      r1 = #{record.r1,jdbcType=VARCHAR},
+      r2 = #{record.r2,jdbcType=VARCHAR},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      i_pic = #{record.iPic,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.ProductItem">
+    update product_item
+    <set>
+      <if test="iName != null">
+        i_name = #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iTime != null">
+        i_time = #{iTime,jdbcType=VARCHAR},
+      </if>
+      <if test="iDesc != null">
+        i_desc = #{iDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="r1 != null">
+        r1 = #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        r2 = #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="iPic != null">
+        i_pic = #{iPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.ProductItem">
+    update product_item
+    set i_name = #{iName,jdbcType=VARCHAR},
+      i_time = #{iTime,jdbcType=VARCHAR},
+      i_desc = #{iDesc,jdbcType=VARCHAR},
+      r1 = #{r1,jdbcType=VARCHAR},
+      r2 = #{r2,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=INTEGER},
+      i_pic = #{iPic,jdbcType=VARCHAR}
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+</mapper>

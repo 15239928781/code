@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.ShopOrdersMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.ShopOrders">
+    <id column="o_id" jdbcType="INTEGER" property="oId" />
+    <result column="o_ordernum" jdbcType="VARCHAR" property="oOrdernum" />
+    <result column="total" jdbcType="DOUBLE" property="total" />
+    <result column="ordertime" jdbcType="VARCHAR" property="ordertime" />
+    <result column="o_state" jdbcType="INTEGER" property="oState" />
+    <result column="u_name" jdbcType="VARCHAR" property="uName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="o_address" jdbcType="VARCHAR" property="oAddress" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="o_isshow" jdbcType="BIT" property="oIsshow" />
+    <result column="d_id" jdbcType="INTEGER" property="dId" />
+    <result column="o_type" jdbcType="INTEGER" property="oType" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+  </resultMap>
+
+  <!-- 累计总收入 -->
+  <select id="sumTotal" resultType="java.lang.Double">
+    SELECT sum(money) as subtotal
+    FROM shop_orders
+    WHERE o_state in (2,3,4)
+  </select>
+  <!-- 今日总收入 -->
+  <select id="Today" resultType="java.lang.Double" parameterType="java.lang.String">
+    SELECT sum(money) as subtotal
+    FROM shop_orders
+    WHERE o_state in (2,3,4) and ordertime like #{todaytime}
+  </select>
+  <!-- 一年中每一个月的收入 -->
+  <select id="getTalbymoth" resultMap="BaseResultMap" parameterType="java.lang.String">
+    Select SUM(money) as total, SUBSTRING(ordertime,6,2) as moth
+    from shop_orders
+    Where  o_state in (2,3,4)
+    And  SUBSTRING(ordertime,1,4)=#{ordertime} group by SUBSTRING(ordertime,6,2)
+  </select>
+
+  <!-- 一年中每一个月的订单总数 -->
+  <select id="getorderbymoth" resultMap="BaseResultMap" parameterType="java.lang.String">
+    Select COUNT(o_id) as sumorder, SUBSTRING(ordertime,6,2) as moth
+    from shop_orders
+    Where
+    o_state in (2,3,4) and
+    SUBSTRING(ordertime,1,4)=#{ordertime} group by SUBSTRING(ordertime,6,2)
+  </select>
+  <!-- 根据时间查看累计总收入 -->
+  <select id="sumTotalByTime" resultType="java.lang.Double" parameterType="java.lang.String">
+    SELECT sum(money) as subtotal
+    FROM shop_orders
+    WHERE o_state in (2,3,4) and ordertime &gt;= #{createTimeStart} and ordertime &lt;= #{createTimeEnd}
+  </select>
+
+
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    o_id, o_ordernum, total, ordertime, o_state, u_name, phone, o_address, u_id, remark, 
+    o_isshow, d_id, o_type, id, money
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.ShopOrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_orders
+    where o_id = #{oId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_orders
+    where o_id = #{oId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.ShopOrdersExample">
+    delete from shop_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.ShopOrders">
+    insert into shop_orders (o_id, o_ordernum, total, 
+      ordertime, o_state, u_name, 
+      phone, o_address, u_id, 
+      remark, o_isshow, d_id, o_type, 
+      id, money)
+    values (#{oId,jdbcType=INTEGER}, #{oOrdernum,jdbcType=VARCHAR}, #{total,jdbcType=DOUBLE}, 
+      #{ordertime,jdbcType=VARCHAR}, #{oState,jdbcType=INTEGER}, #{uName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{oAddress,jdbcType=VARCHAR}, #{uId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{oIsshow,jdbcType=BIT}, #{dId,jdbcType=INTEGER}, #{oType,jdbcType=INTEGER}, 
+      #{id,jdbcType=INTEGER}, #{money,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.ShopOrders">
+    insert into shop_orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oId != null">
+        o_id,
+      </if>
+      <if test="oOrdernum != null">
+        o_ordernum,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="ordertime != null">
+        ordertime,
+      </if>
+      <if test="oState != null">
+        o_state,
+      </if>
+      <if test="uName != null">
+        u_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="oAddress != null">
+        o_address,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="oIsshow != null">
+        o_isshow,
+      </if>
+      <if test="dId != null">
+        d_id,
+      </if>
+      <if test="oType != null">
+        o_type,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oId != null">
+        #{oId,jdbcType=INTEGER},
+      </if>
+      <if test="oOrdernum != null">
+        #{oOrdernum,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="ordertime != null">
+        #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="oState != null">
+        #{oState,jdbcType=INTEGER},
+      </if>
+      <if test="uName != null">
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="oAddress != null">
+        #{oAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="oIsshow != null">
+        #{oIsshow,jdbcType=BIT},
+      </if>
+      <if test="dId != null">
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="oType != null">
+        #{oType,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.ShopOrdersExample" resultType="java.lang.Long">
+    select count(*) from shop_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shop_orders
+    <set>
+      <if test="record.oId != null">
+        o_id = #{record.oId,jdbcType=INTEGER},
+      </if>
+      <if test="record.oOrdernum != null">
+        o_ordernum = #{record.oOrdernum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null">
+        total = #{record.total,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ordertime != null">
+        ordertime = #{record.ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oState != null">
+        o_state = #{record.oState,jdbcType=INTEGER},
+      </if>
+      <if test="record.uName != null">
+        u_name = #{record.uName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oAddress != null">
+        o_address = #{record.oAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oIsshow != null">
+        o_isshow = #{record.oIsshow,jdbcType=BIT},
+      </if>
+      <if test="record.dId != null">
+        d_id = #{record.dId,jdbcType=INTEGER},
+      </if>
+      <if test="record.oType != null">
+        o_type = #{record.oType,jdbcType=INTEGER},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shop_orders
+    set o_id = #{record.oId,jdbcType=INTEGER},
+      o_ordernum = #{record.oOrdernum,jdbcType=VARCHAR},
+      total = #{record.total,jdbcType=DOUBLE},
+      ordertime = #{record.ordertime,jdbcType=VARCHAR},
+      o_state = #{record.oState,jdbcType=INTEGER},
+      u_name = #{record.uName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      o_address = #{record.oAddress,jdbcType=VARCHAR},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      o_isshow = #{record.oIsshow,jdbcType=BIT},
+      d_id = #{record.dId,jdbcType=INTEGER},
+      o_type = #{record.oType,jdbcType=INTEGER},
+      id = #{record.id,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.ShopOrders">
+    update shop_orders
+    <set>
+      <if test="oOrdernum != null">
+        o_ordernum = #{oOrdernum,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="ordertime != null">
+        ordertime = #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="oState != null">
+        o_state = #{oState,jdbcType=INTEGER},
+      </if>
+      <if test="uName != null">
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="oAddress != null">
+        o_address = #{oAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="oIsshow != null">
+        o_isshow = #{oIsshow,jdbcType=BIT},
+      </if>
+      <if test="dId != null">
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="oType != null">
+        o_type = #{oType,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where o_id = #{oId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.ShopOrders">
+    update shop_orders
+    set o_ordernum = #{oOrdernum,jdbcType=VARCHAR},
+      total = #{total,jdbcType=DOUBLE},
+      ordertime = #{ordertime,jdbcType=VARCHAR},
+      o_state = #{oState,jdbcType=INTEGER},
+      u_name = #{uName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      o_address = #{oAddress,jdbcType=VARCHAR},
+      u_id = #{uId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      o_isshow = #{oIsshow,jdbcType=BIT},
+      d_id = #{dId,jdbcType=INTEGER},
+      o_type = #{oType,jdbcType=INTEGER},
+      id = #{id,jdbcType=INTEGER},
+      money = #{money,jdbcType=VARCHAR}
+    where o_id = #{oId,jdbcType=INTEGER}
+  </update>
+</mapper>

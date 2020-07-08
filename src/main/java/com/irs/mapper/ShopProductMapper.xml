@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.ShopProductMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.ShopProduct">
+    <id column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="p_price" jdbcType="DOUBLE" property="pPrice" />
+    <result column="p_oldprice" jdbcType="DOUBLE" property="pOldprice" />
+    <result column="p_image" jdbcType="VARCHAR" property="pImage" />
+    <result column="p_addtime" jdbcType="VARCHAR" property="pAddtime" />
+    <result column="p_desc" jdbcType="VARCHAR" property="pDesc" />
+    <result column="p_ishot" jdbcType="INTEGER" property="pIshot" />
+    <result column="p_ison" jdbcType="INTEGER" property="pIson" />
+    <result column="p_iscoupon" jdbcType="INTEGER" property="pIscoupon" />
+    <result column="p_iscore" jdbcType="INTEGER" property="pIscore" />
+    <result column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="p_num" jdbcType="INTEGER" property="pNum" />
+    <result column="p_stock" jdbcType="INTEGER" property="pStock" />
+    <result column="p_isfee" jdbcType="INTEGER" property="pIsfee" />
+    <result column="p_iskill" jdbcType="INTEGER" property="pIskill" />
+    <result column="p_isgroup" jdbcType="VARCHAR" property="pIsgroup" />
+    <result column="p_realname" jdbcType="VARCHAR" property="pRealName" />
+    <result column="p_validity" jdbcType="INTEGER" property="pValidity" />
+    <result column="p_ispc" jdbcType="INTEGER" property="pIspc" />
+    <result column="t_id" jdbcType="INTEGER" property="tId" />
+    <result column="sb_id" jdbcType="BIGINT" property="sbId" />
+    <result column="p_tuijian" jdbcType="INTEGER" property="pTuijian" />
+    <result column="p_realname" jdbcType="VARCHAR" property="pRealName" />
+  </resultMap>
+
+  <select id="getBrowse" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT * from shop_product where p_id in(SELECT p_id from shop_browse where u_id=#{id,jdbcType=INTEGER})
+  </select>
+  <select id="getProductByNum" resultMap="BaseResultMap">
+  	SELECT * FROM shop_product ORDER BY p_num desc LIMIT 0,6
+  </select>
+  <select id="getProductByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT * from shop_product where p_name in(SELECT p_name from shop_product where p_id in(
+	SELECT p_id from shop_browse WHERE u_id=#{uid,jdbcType=INTEGER} ORDER BY b_time desc)) LIMIT 0,6
+  </select>
+  <select id="selectbyPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT * from shop_product where p_id=#{pId,jdbcType=INTEGER}
+  </select>
+  <select id="getProductByPid" resultMap="BaseResultMap">
+  	SELECT * FROM shop_product ORDER BY p_id desc
+  </select>
+
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    p_id, p_name, p_price, p_oldprice, p_image, p_addtime, p_desc, p_ishot, p_ison, p_iscoupon, 
+    p_iscore, c_id, p_num, p_stock, p_isfee, p_iskill, p_isgroup, p_realname, p_validity, p_ispc,
+    t_id, sb_id, p_tuijian
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.ShopProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_product
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_product
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.ShopProductExample">
+    delete from shop_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.ShopProduct">
+    insert into shop_product (p_id, p_name, p_price, 
+      p_oldprice, p_image, p_addtime, 
+      p_desc, p_ishot, p_ison, 
+      p_iscoupon, p_iscore, c_id, 
+      p_num, p_stock, p_isfee, 
+      p_iskill, p_isgroup, p_realname, p_validity,
+      p_ispc, t_id, sb_id, p_tuijian
+      )
+    values (#{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{pPrice,jdbcType=DOUBLE}, 
+      #{pOldprice,jdbcType=DOUBLE}, #{pImage,jdbcType=VARCHAR}, #{pAddtime,jdbcType=VARCHAR}, 
+      #{pDesc,jdbcType=VARCHAR}, #{pIshot,jdbcType=INTEGER}, #{pIson,jdbcType=INTEGER}, 
+      #{pIscoupon,jdbcType=INTEGER}, #{pIscore,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, 
+      #{pNum,jdbcType=INTEGER}, #{pStock,jdbcType=INTEGER}, #{pIsfee,jdbcType=INTEGER}, 
+      #{pIskill,jdbcType=INTEGER}, #{pIsgroup,jdbcType=VARCHAR},#{pRealName,jdbcType=VARCHAR}, #{pValidity,jdbcType=INTEGER},
+      #{pIspc,jdbcType=INTEGER}, #{tId,jdbcType=INTEGER}, #{sbId,jdbcType=BIGINT}, #{pTuijian,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.ShopProduct">
+    insert into shop_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="pName != null">
+        p_name,
+      </if>
+      <if test="pPrice != null">
+        p_price,
+      </if>
+      <if test="pOldprice != null">
+        p_oldprice,
+      </if>
+      <if test="pImage != null">
+        p_image,
+      </if>
+      <if test="pAddtime != null">
+        p_addtime,
+      </if>
+      <if test="pDesc != null">
+        p_desc,
+      </if>
+      <if test="pIshot != null">
+        p_ishot,
+      </if>
+      <if test="pIson != null">
+        p_ison,
+      </if>
+      <if test="pIscoupon != null">
+        p_iscoupon,
+      </if>
+      <if test="pIscore != null">
+        p_iscore,
+      </if>
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="pNum != null">
+        p_num,
+      </if>
+      <if test="pStock != null">
+        p_stock,
+      </if>
+      <if test="pIsfee != null">
+        p_isfee,
+      </if>
+      <if test="pIskill != null">
+        p_iskill,
+      </if>
+      <if test="pIsgroup != null">
+        p_isgroup,
+      </if>
+      <if test="pRealName != null">
+        p_realname,
+      </if>
+      <if test="pValidity != null">
+        p_validity,
+      </if>
+      <if test="pIspc != null">
+        p_ispc,
+      </if>
+      <if test="tId != null">
+        t_id,
+      </if>
+      <if test="sbId != null">
+        sb_id,
+      </if>
+      <if test="pTuijian != null">
+        p_tuijian,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pPrice != null">
+        #{pPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="pOldprice != null">
+        #{pOldprice,jdbcType=DOUBLE},
+      </if>
+      <if test="pImage != null">
+        #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pAddtime != null">
+        #{pAddtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null">
+        #{pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pIshot != null">
+        #{pIshot,jdbcType=INTEGER},
+      </if>
+      <if test="pIson != null">
+        #{pIson,jdbcType=INTEGER},
+      </if>
+      <if test="pIscoupon != null">
+        #{pIscoupon,jdbcType=INTEGER},
+      </if>
+      <if test="pIscore != null">
+        #{pIscore,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="pNum != null">
+        #{pNum,jdbcType=INTEGER},
+      </if>
+      <if test="pStock != null">
+        #{pStock,jdbcType=INTEGER},
+      </if>
+      <if test="pIsfee != null">
+        #{pIsfee,jdbcType=INTEGER},
+      </if>
+      <if test="pIskill != null">
+        #{pIskill,jdbcType=INTEGER},
+      </if>
+      <if test="pIsgroup != null">
+        #{pIsgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="pRealName != null">
+        #{pRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="pValidity != null">
+        #{pValidity,jdbcType=INTEGER},
+      </if>
+      <if test="pIspc != null">
+        #{pIspc,jdbcType=INTEGER},
+      </if>
+      <if test="tId != null">
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="sbId != null">
+        #{sbId,jdbcType=BIGINT},
+      </if>
+      <if test="pTuijian != null">
+        #{pTuijian,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.ShopProductExample" resultType="java.lang.Long">
+    select count(*) from shop_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shop_product
+    <set>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pName != null">
+        p_name = #{record.pName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPrice != null">
+        p_price = #{record.pPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pOldprice != null">
+        p_oldprice = #{record.pOldprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pImage != null">
+        p_image = #{record.pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pAddtime != null">
+        p_addtime = #{record.pAddtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pDesc != null">
+        p_desc = #{record.pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pIshot != null">
+        p_ishot = #{record.pIshot,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIson != null">
+        p_ison = #{record.pIson,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIscoupon != null">
+        p_iscoupon = #{record.pIscoupon,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIscore != null">
+        p_iscore = #{record.pIscore,jdbcType=INTEGER},
+      </if>
+      <if test="record.cId != null">
+        c_id = #{record.cId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pNum != null">
+        p_num = #{record.pNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.pStock != null">
+        p_stock = #{record.pStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIsfee != null">
+        p_isfee = #{record.pIsfee,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIskill != null">
+        p_iskill = #{record.pIskill,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIsgroup != null">
+        p_isgroup = #{record.pIsgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pRealName != null">
+        p_realname = #{record.pRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pValidity != null">
+        p_validity = #{record.pValidity,jdbcType=INTEGER},
+      </if>
+      <if test="record.pIspc != null">
+        p_ispc = #{record.pIspc,jdbcType=INTEGER},
+      </if>
+      <if test="record.tId != null">
+        t_id = #{record.tId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sbId != null">
+        sb_id = #{record.sbId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pTuijian != null">
+        p_tuijian = #{record.pTuijian,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shop_product
+    set p_id = #{record.pId,jdbcType=INTEGER},
+      p_name = #{record.pName,jdbcType=VARCHAR},
+      p_price = #{record.pPrice,jdbcType=DOUBLE},
+      p_oldprice = #{record.pOldprice,jdbcType=DOUBLE},
+      p_image = #{record.pImage,jdbcType=VARCHAR},
+      p_addtime = #{record.pAddtime,jdbcType=VARCHAR},
+      p_desc = #{record.pDesc,jdbcType=VARCHAR},
+      p_ishot = #{record.pIshot,jdbcType=INTEGER},
+      p_ison = #{record.pIson,jdbcType=INTEGER},
+      p_iscoupon = #{record.pIscoupon,jdbcType=INTEGER},
+      p_iscore = #{record.pIscore,jdbcType=INTEGER},
+      c_id = #{record.cId,jdbcType=INTEGER},
+      p_num = #{record.pNum,jdbcType=INTEGER},
+      p_stock = #{record.pStock,jdbcType=INTEGER},
+      p_isfee = #{record.pIsfee,jdbcType=INTEGER},
+      p_iskill = #{record.pIskill,jdbcType=INTEGER},
+      p_isgroup = #{record.pIsgroup,jdbcType=VARCHAR},
+      p_realname = #{record.realname,jdbcType=VARCHAR},
+      p_validity = #{record.pValidity,jdbcType=INTEGER},
+      p_ispc = #{record.pIspc,jdbcType=INTEGER},
+      t_id = #{record.tId,jdbcType=INTEGER},
+      sb_id = #{record.sbId,jdbcType=BIGINT},
+      p_tuijian = #{record.pTuijian,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.ShopProduct">
+    update shop_product
+    <set>
+      <if test="pName != null">
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pPrice != null">
+        p_price = #{pPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="pOldprice != null">
+        p_oldprice = #{pOldprice,jdbcType=DOUBLE},
+      </if>
+      <if test="pImage != null">
+        p_image = #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pAddtime != null">
+        p_addtime = #{pAddtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null">
+        p_desc = #{pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pIshot != null">
+        p_ishot = #{pIshot,jdbcType=INTEGER},
+      </if>
+      <if test="pIson != null">
+        p_ison = #{pIson,jdbcType=INTEGER},
+      </if>
+      <if test="pIscoupon != null">
+        p_iscoupon = #{pIscoupon,jdbcType=INTEGER},
+      </if>
+      <if test="pIscore != null">
+        p_iscore = #{pIscore,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="pNum != null">
+        p_num = #{pNum,jdbcType=INTEGER},
+      </if>
+      <if test="pStock != null">
+        p_stock = #{pStock,jdbcType=INTEGER},
+      </if>
+      <if test="pIsfee != null">
+        p_isfee = #{pIsfee,jdbcType=INTEGER},
+      </if>
+      <if test="pIskill != null">
+        p_iskill = #{pIskill,jdbcType=INTEGER},
+      </if>
+      <if test="pIsgroup != null">
+        p_isgroup = #{pIsgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="pRealName != null">
+        p_realname = #{pRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="pValidity != null">
+        p_validity = #{pValidity,jdbcType=INTEGER},
+      </if>
+      <if test="pIspc != null">
+        p_ispc = #{pIspc,jdbcType=INTEGER},
+      </if>
+      <if test="tId != null">
+        t_id = #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="sbId != null">
+        sb_id = #{sbId,jdbcType=BIGINT},
+      </if>
+      <if test="pTuijian != null">
+        p_tuijian = #{pTuijian,jdbcType=INTEGER},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.ShopProduct">
+    update shop_product
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_price = #{pPrice,jdbcType=DOUBLE},
+      p_oldprice = #{pOldprice,jdbcType=DOUBLE},
+      p_image = #{pImage,jdbcType=VARCHAR},
+      p_addtime = #{pAddtime,jdbcType=VARCHAR},
+      p_desc = #{pDesc,jdbcType=VARCHAR},
+      p_ishot = #{pIshot,jdbcType=INTEGER},
+      p_ison = #{pIson,jdbcType=INTEGER},
+      p_iscoupon = #{pIscoupon,jdbcType=INTEGER},
+      p_iscore = #{pIscore,jdbcType=INTEGER},
+      c_id = #{cId,jdbcType=INTEGER},
+      p_num = #{pNum,jdbcType=INTEGER},
+      p_stock = #{pStock,jdbcType=INTEGER},
+      p_isfee = #{pIsfee,jdbcType=INTEGER},
+      p_iskill = #{pIskill,jdbcType=INTEGER},
+      p_isgroup = #{pIsgroup,jdbcType=VARCHAR},
+      p_realname = #{pRealName,jdbcType=VARCHAR},
+      p_validity = #{pValidity,jdbcType=INTEGER},
+      p_ispc = #{pIspc,jdbcType=INTEGER},
+      t_id = #{tId,jdbcType=INTEGER},
+      sb_id = #{sbId,jdbcType=BIGINT},
+      p_tuijian = #{pTuijian,jdbcType=INTEGER}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>

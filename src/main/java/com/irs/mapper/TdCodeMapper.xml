@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.TdCodeMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.TdCode">
+    <id column="td_id" jdbcType="INTEGER" property="tdId" />
+    <result column="td_code" jdbcType="VARCHAR" property="tdCode" />
+    <result column="Background" jdbcType="VARCHAR" property="background" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    td_id, td_code, Background
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.TdCodeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from td_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from td_code
+    where td_id = #{tdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from td_code
+    where td_id = #{tdId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.TdCodeExample">
+    delete from td_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.TdCode">
+    insert into td_code (td_id, td_code, Background
+      )
+    values (#{tdId,jdbcType=INTEGER}, #{tdCode,jdbcType=VARCHAR}, #{background,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.TdCode">
+    insert into td_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tdId != null">
+        td_id,
+      </if>
+      <if test="tdCode != null">
+        td_code,
+      </if>
+      <if test="background != null">
+        Background,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tdId != null">
+        #{tdId,jdbcType=INTEGER},
+      </if>
+      <if test="tdCode != null">
+        #{tdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="background != null">
+        #{background,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.TdCodeExample" resultType="java.lang.Long">
+    select count(*) from td_code
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update td_code
+    <set>
+      <if test="record.tdId != null">
+        td_id = #{record.tdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tdCode != null">
+        td_code = #{record.tdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.background != null">
+        Background = #{record.background,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update td_code
+    set td_id = #{record.tdId,jdbcType=INTEGER},
+      td_code = #{record.tdCode,jdbcType=VARCHAR},
+      Background = #{record.background,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.TdCode">
+    update td_code
+    <set>
+      <if test="tdCode != null">
+        td_code = #{tdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="background != null">
+        Background = #{background,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where td_id = #{tdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.TdCode">
+    update td_code
+    set td_code = #{tdCode,jdbcType=VARCHAR},
+      Background = #{background,jdbcType=VARCHAR}
+    where td_id = #{tdId,jdbcType=INTEGER}
+  </update>
+</mapper>

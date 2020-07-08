@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.ShopRollpicMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.ShopRollpic">
+    <id column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="r_pic" jdbcType="VARCHAR" property="rPic" />
+    <result column="r_type" jdbcType="INTEGER" property="rType" />
+    <result column="r_status" jdbcType="INTEGER" property="rStatus" />
+  </resultMap>
+  <select id="selectByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT * from shop_rollpic where r_type=#{type,jdbcType=INTEGER}
+  </select>
+  <select id="getCartByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT sc.*,sp.p_name,sp.p_image,sp.p_desc,sp.p_price from shop_cart sc LEFT JOIN shop_product sp ON
+	sc.p_id=sp.p_id
+	where sc.u_id=#{uId,jdbcType=INTEGER}
+  </select>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    r_id, r_name, r_pic, r_type, r_status
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.ShopRollpicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_rollpic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_rollpic
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_rollpic
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.ShopRollpicExample">
+    delete from shop_rollpic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.ShopRollpic">
+    insert into shop_rollpic (r_id, r_name, r_pic, 
+      r_type, r_status)
+    values (#{rId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR}, #{rPic,jdbcType=VARCHAR}, 
+      #{rType,jdbcType=INTEGER}, #{rStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.ShopRollpic">
+    insert into shop_rollpic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        r_id,
+      </if>
+      <if test="rName != null">
+        r_name,
+      </if>
+      <if test="rPic != null">
+        r_pic,
+      </if>
+      <if test="rType != null">
+        r_type,
+      </if>
+      <if test="rStatus != null">
+        r_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null">
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rPic != null">
+        #{rPic,jdbcType=VARCHAR},
+      </if>
+      <if test="rType != null">
+        #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rStatus != null">
+        #{rStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.ShopRollpicExample" resultType="java.lang.Long">
+    select count(*) from shop_rollpic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shop_rollpic
+    <set>
+      <if test="record.rId != null">
+        r_id = #{record.rId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rName != null">
+        r_name = #{record.rName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rPic != null">
+        r_pic = #{record.rPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rType != null">
+        r_type = #{record.rType,jdbcType=INTEGER},
+      </if>
+      <if test="record.rStatus != null">
+        r_status = #{record.rStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shop_rollpic
+    set r_id = #{record.rId,jdbcType=INTEGER},
+      r_name = #{record.rName,jdbcType=VARCHAR},
+      r_pic = #{record.rPic,jdbcType=VARCHAR},
+      r_type = #{record.rType,jdbcType=INTEGER},
+      r_status = #{record.rStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.ShopRollpic">
+    update shop_rollpic
+    <set>
+      <if test="rName != null">
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rPic != null">
+        r_pic = #{rPic,jdbcType=VARCHAR},
+      </if>
+      <if test="rType != null">
+        r_type = #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rStatus != null">
+        r_status = #{rStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.ShopRollpic">
+    update shop_rollpic
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_pic = #{rPic,jdbcType=VARCHAR},
+      r_type = #{rType,jdbcType=INTEGER},
+      r_status = #{rStatus,jdbcType=INTEGER}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

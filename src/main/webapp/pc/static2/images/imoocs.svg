@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>身份图标/慕星人</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M4.1253,22.5 C2.6748,22.5 1.5003,21.3255 1.5003,19.875 L1.5003,12 C1.5003,6.201 6.2013,1.5 12.0003,1.5 C17.7993,1.5 22.5003,6.201 22.5003,12 L22.5003,19.875 C22.5003,21.3255 21.3243,22.5 19.8753,22.5 L4.1253,22.5 Z" id="path-1"></path>
+    </defs>
+    <g id="全局公共部分" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="身份图标/慕星人">
+            <g id="Fill-1">
+                <use fill="#009F90" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <path stroke-opacity="0.4" stroke="#FFFFFF" stroke-width="1.5" d="M4.1253,21.75 C3.08901356,21.75 2.2503,20.9112864 2.2503,19.875 L2.2503,12 C2.2503,6.61521356 6.61551356,2.25 12.0003,2.25 C17.3850864,2.25 21.7503,6.61521356 21.7503,12 L21.7503,19.875 C21.7503,20.9107022 20.9106709,21.75 19.8753,21.75 L4.1253,21.75 Z"></path>
+            </g>
+            <path d="M18.5628,10.30005 C18.5628,13.92555 15.6243,16.86255 12.0003,16.86255 C8.3748,16.86255 5.4378,13.92555 5.4378,10.30005" id="Fill-7" fill="#FFFFFF"></path>
+            <path d="M15.28155,10.30005 C15.28155,12.11205 13.81305,13.58205 11.99955,13.58205 C10.18755,13.58205 8.71905,12.11205 8.71905,10.30005" id="Fill-9" fill="#000000"></path>
+        </g>
+    </g>
+</svg>

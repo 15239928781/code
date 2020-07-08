@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>登陆页面</title>
+    <link rel="icon" href="static2/images/logo-icon.png">
+    <link rel="stylesheet" type="text/css" href="static2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static2/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static2/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="static2/css/util.css">
+    <link rel="stylesheet" type="text/css" href="static2/css/main.css">
+</head>
+
+<body>
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('static2/images/bg-01.jpg');">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form validate-form" method="post">
+                <span class="login100-form-title p-b-49">登录</span>
+
+                <div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
+                    <span class="label-input100">用户名</span>
+                    <input class="input100" type="text" name="account" id="account" placeholder="请输入用户名"
+                           autocomplete="off">
+                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="请输入密码">
+                    <span class="label-input100">密码</span>
+                    <input class="input100" type="password" name="loginpwd" placeholder="请输入密码" id="loginpwd">
+                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                </div>
+
+                <div class="text-right p-t-8 p-b-31">
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button type="button" id="submit" class="login100-form-btn">登 录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 静态储存区,全局变量 -->
+<script src="static2/js/extern.js"></script>
+<script src="static2/js/jquery-1.9.1.min.js"></script>
+<script src="static2/js/main.js"></script>
+<script type="text/javascript">
+    $("#submit").click(function () {
+        // 用户名判空
+        var account = $("#account").val();
+        if (account == '' || account == null || account == 'undefined') {
+            alert("用户名不能为空")
+            return
+        }
+        // 密码判空
+        var loginpwd = $("#loginpwd").val();
+        if (loginpwd == '' || loginpwd == null || loginpwd == 'undefined') {
+            alert("密码不能为空")
+            return
+        }
+        $.ajax({
+            type: "POST",
+            url: ctx + "/ssm/front/login",
+            data: {
+                "account": account,
+                "loginpwd": loginpwd
+            },
+            success: function (res) {
+                // console.log(res)
+                // return
+                res = JSON.parse(res)
+                if (res.status == 200) {
+                    localStorage.setItem('uId', res.data.uId)
+                    localStorage.setItem('token', res.data.token)
+                    top.location.href = "index2.html";
+                } else {
+                    // console.log(typeof(res))
+                    alert(res.msg)
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

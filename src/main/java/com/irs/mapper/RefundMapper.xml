@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.RefundMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.Refund">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="r_tel" jdbcType="VARCHAR" property="rTel" />
+    <result column="r_address" jdbcType="VARCHAR" property="rAddress" />
+    <result column="u_name" jdbcType="VARCHAR" property="uName" />
+    <result column="u_tel" jdbcType="VARCHAR" property="uTel" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="r1" jdbcType="VARCHAR" property="r1" />
+    <result column="r2" jdbcType="VARCHAR" property="r2" />
+    <result column="num" jdbcType="VARCHAR" property="num" />
+    <result column="u_address" jdbcType="VARCHAR" property="uAddress" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_id, reason, u_id, r_name, r_tel, r_address, u_name, u_tel, status, r1, 
+    r2, num, u_address
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.RefundExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from refund
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from refund
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from refund
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.RefundExample">
+    delete from refund
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.Refund">
+    insert into refund (id, order_id, reason, 
+      u_id, r_name, r_tel, r_address, 
+      u_name, u_tel, status, 
+      r1, r2, num, u_address
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, 
+      #{uId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR}, #{rTel,jdbcType=VARCHAR}, #{rAddress,jdbcType=VARCHAR}, 
+      #{uName,jdbcType=VARCHAR}, #{uTel,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{r1,jdbcType=VARCHAR}, #{r2,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR}, #{uAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.Refund" useGeneratedKeys="true" keyProperty="id">
+    insert into refund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="rName != null">
+        r_name,
+      </if>
+      <if test="rTel != null">
+        r_tel,
+      </if>
+      <if test="rAddress != null">
+        r_address,
+      </if>
+      <if test="uName != null">
+        u_name,
+      </if>
+      <if test="uTel != null">
+        u_tel,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="r1 != null">
+        r1,
+      </if>
+      <if test="r2 != null">
+        r2,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="uAddress != null">
+        u_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null">
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rTel != null">
+        #{rTel,jdbcType=VARCHAR},
+      </if>
+      <if test="rAddress != null">
+        #{rAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null">
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uTel != null">
+        #{uTel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="r1 != null">
+        #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="uAddress != null">
+        #{uAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.RefundExample" resultType="java.lang.Long">
+    select count(*) from refund
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update refund
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reason != null">
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rName != null">
+        r_name = #{record.rName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rTel != null">
+        r_tel = #{record.rTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rAddress != null">
+        r_address = #{record.rAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uName != null">
+        u_name = #{record.uName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uTel != null">
+        u_tel = #{record.uTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r1 != null">
+        r1 = #{record.r1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r2 != null">
+        r2 = #{record.r2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uAddress != null">
+        u_address = #{record.uAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update refund
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      r_name = #{record.rName,jdbcType=VARCHAR},
+      r_tel = #{record.rTel,jdbcType=VARCHAR},
+      r_address = #{record.rAddress,jdbcType=VARCHAR},
+      u_name = #{record.uName,jdbcType=VARCHAR},
+      u_tel = #{record.uTel,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      r1 = #{record.r1,jdbcType=VARCHAR},
+      r2 = #{record.r2,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=VARCHAR},
+      u_address = #{record.uAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.Refund">
+    update refund
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null">
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rTel != null">
+        r_tel = #{rTel,jdbcType=VARCHAR},
+      </if>
+      <if test="rAddress != null">
+        r_address = #{rAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null">
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="uTel != null">
+        u_tel = #{uTel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="r1 != null">
+        r1 = #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        r2 = #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="uAddress != null">
+        u_address = #{uAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.Refund">
+    update refund
+    set order_id = #{orderId,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      u_id = #{uId,jdbcType=INTEGER},
+      r_name = #{rName,jdbcType=VARCHAR},
+      r_tel = #{rTel,jdbcType=VARCHAR},
+      r_address = #{rAddress,jdbcType=VARCHAR},
+      u_name = #{uName,jdbcType=VARCHAR},
+      u_tel = #{uTel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      r1 = #{r1,jdbcType=VARCHAR},
+      r2 = #{r2,jdbcType=VARCHAR},
+      num = #{num,jdbcType=VARCHAR},
+      u_address = #{uAddress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

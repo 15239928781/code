@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.ShopCartMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.ShopCart">
+    <id column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+    <result column="edittime" jdbcType="VARCHAR" property="edittime" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_price" property="pPrice" jdbcType="DOUBLE" />
+
+    <result column="p_image" property="pImage" jdbcType="VARCHAR" />
+
+    <result column="p_desc" property="pDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getCartByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT sc.*,sp.p_name,sp.p_image,sp.p_desc,sp.p_price from shop_cart sc LEFT JOIN shop_product sp ON
+	sc.p_id=sp.p_id
+	where sc.u_id=#{uId,jdbcType=INTEGER}
+  </select>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    c_id, p_id, u_id, num, addtime, edittime
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.ShopCartExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_cart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop_cart
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_cart
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.ShopCartExample">
+    delete from shop_cart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.ShopCart">
+    insert into shop_cart (c_id, p_id, u_id,
+      num, addtime, edittime
+      )
+    values (#{cId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER},
+      #{num,jdbcType=INTEGER}, #{addtime,jdbcType=VARCHAR}, #{edittime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.ShopCart">
+    insert into shop_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="edittime != null">
+        edittime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="edittime != null">
+        #{edittime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.ShopCartExample" resultType="java.lang.Long">
+    select count(*) from shop_cart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shop_cart
+    <set>
+      <if test="record.cId != null">
+        c_id = #{record.cId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.addtime != null">
+        addtime = #{record.addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edittime != null">
+        edittime = #{record.edittime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shop_cart
+    set c_id = #{record.cId,jdbcType=INTEGER},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=INTEGER},
+      addtime = #{record.addtime,jdbcType=VARCHAR},
+      edittime = #{record.edittime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.ShopCart">
+    update shop_cart
+    <set>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="edittime != null">
+        edittime = #{edittime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.ShopCart">
+    update shop_cart
+    set p_id = #{pId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      edittime = #{edittime,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>白又白-青少儿美育专家</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit"/>
+    <meta property="qc:admins" content="77103107776157736375"/>
+    <meta property="wb:webmaster" content="c4f857219bfae3cb"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta http-equiv="Cache-Control" content="no-transform "/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="360-site-verification" content="efec9ca9c0c2bf49b8f54f8ea4626ea8"/>
+    <meta name="baidu-site-verification" content="f81e4a13096b3a7cab15fe1d39773a4e"/>
+    <link rel="icon" href="static2/images/logo-icon.png">
+    <link rel="stylesheet" href="static2/css/moco.min.css" type="text/css"/>
+    <link rel="stylesheet" href="static2/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="static2/css/common.css">
+    <link rel="stylesheet" href="static2/css/header.css">
+    <link rel="stylesheet" href="static2/css/0938fa5423c94e9f9c9af663e26b4c3d.css" type="text/css"/>
+    <style>
+        .course-nav-item:hover {
+            cursor: pointer;
+        }
+
+        .card-sets:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body id="index">
+<!-- 顶部广告位 -->
+<div id="moco-top-advertising"></div>
+<div id="header">
+    <div class="page-container clearfix" id="nav" style="background-color: #fff !important;">
+        <div id="logo" class="logo">
+            <a href="index2.html" title="首页">
+                <img style="height: 48px;margin-top: 12px" title="白又白" src="static2/images/logo.png">
+            </a>
+        </div>
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="app-download user-card-box" id="js-app-load">
+                    <a id="" target="_blank" style="width:60px;">关注公众号</a>
+                    <!--<span id="guanzhuhao" style="color: #000000">关注公众号</span>-->
+                    <div id="gongZhongHaoImg" class="g-user-card" style="visibility:hidden">
+                        <img src="static2/images/code.jpg">
+                    </div>
+                </li>
+                <li class="header-signin" id="login">
+                    <a href="login.html" id="js-signin-btn">登录</a>
+                </li>
+                <li class="set_btn user-card-box" id="header-user-card" style="display: none;">
+                    <a id="header-avator" class="user-card-item js-header-avator" action-type="my_menu" target="_self">
+                        <img style="width: 40px;height: 40px" width="40" height="40" id="headerImg"
+                             src="//img3.mukewang.com/582c2f900001f84406400640-100-100.jpg">
+                        <i class="myspace_remind" style="display: none;"></i>
+                        <span style="display: none;">动态提醒</span>
+                    </a>
+                    <div class="g-user-card">
+                        <div class="card-inner">
+                            <div class="card-top clearfix">
+                                <a class="l"><img
+                                        src="//img3.mukewang.com/582c2f900001f84406400640-100-100.jpg"
+                                        alt="qq__49544366693" id="Imgsrc">
+                                </a>
+                                <div class="card-top-right-box l">
+                                    <div>
+                                        <span class="name text-ellipsis" id="uName">byb_49544366693</span>
+                                    </div>
+                                    <div class="meta">
+                                        <!--<a href="/u/index/experience">经验<b id="js-user-mp">674</b></a>-->
+                                        <!--<a href="/u/index/credit">积分<b id="js-user-credit">0</b></a>-->
+                                        <span>积分<b id="js-user-credit">0</b></span>
+                                        <span><b id="js-user-mp">普通会员</b></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-sets clearfix">
+                                <a class="l" onclick="edit();">安全退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="main">
+    <div class="bgfff" style="overflow: auto;">
+        <div class='container-types clearfix'>
+            <h3 class='types-title'>
+                <span class="tit-icon icon-shizhan-l tit-icon-l"></span><em>我</em>／<em>的</em>／<em>课</em>／<em>程</em><span
+                    class="tit-icon icon-shizhan-r tit-icon-r"></span>
+            </h3>
+            <div class='clearfix types-content' id="spkill">
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="footer idx-minwidth">
+    <div class="container">
+        <div class="footer-wrap idx-width">
+            <div class="footer-sns clearfix">
+            </div>
+        </div>
+        <div class="footer-link">
+            <a target="_blank" title="关于我们">关于我们</a>
+            <a target="_blank" title="联系我们">联系我们</a>
+            <a target="_blank" title="帮助中心">帮助中心</a>
+            <a target="_blank" title="意见反馈">意见反馈</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- 静态储存区,全局变量 -->
+<script src="static2/js/extern.js"></script>
+<script type="text/javascript" src="static2/js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="static2/js/jquery.cookie.js"></script>-->
+<script type="text/javascript">
+
+
+    // 关注公众号
+    document.getElementById('js-app-load').onmouseover = function (even) {
+        document.getElementById('gongZhongHaoImg').style.visibility = 'visible'
+    }
+    document.getElementById('js-app-load').onmouseout = function (even) {
+        document.getElementById('gongZhongHaoImg').style.visibility = 'hidden'
+    }
+
+    // if (uId != '') {
+
+        $.ajax({
+            type: "post",
+            url: ctx + "/ssm/front/getUserByIdPC",
+            data:{
+                uId:uId,
+                token:getToken()
+            },
+            success: function (d) {
+                d = JSON.parse(d)
+                if (d.data.length <1){
+                    window.location.href = "login.html";
+                }
+                // console.log(d)
+                if (d.status == 204) {
+                    window.location.href="login.html";
+                } else {
+                    // $("#header-user-card").css("display", "block");
+                    // $("#login").css("display", "none");
+                    // $("#headerImg").attr("src", d.data.uImg);
+                    // $("#Imgsrc").attr("src", d.data.uImg);
+                    // $("#uName").html(d.data.uName);
+                    $("#header-user-card").css("display", "block");
+                    $("#login").css("display", "none");
+                    $("#headerImg").attr("src", d.data[0].uImg);
+                    $("#Imgsrc").attr("src", d.data[0].uImg);
+                    // $("#uName").html(d.data.uName);
+                    $("#uName").text(d.data[0].uName)
+                    $("#js-user-credit").text(d.data[0].uIntegral)
+                    $("#js-user-mp").text(d.data[0].levelName)
+
+                }
+            },
+            error:function (error) {
+                window.location.href="login.html";
+            }
+        })
+    // }
+    $.ajax({
+        type: "post",
+        url: ctx + "/ssm/front/getProductByuid?uId=" + uId,
+        success: function (d) {
+            var d = JSON.parse(d);
+            console.log(d.data.orderitemList)
+            if (d.status == 200) {
+                for (var i = 0; i < d.data.orderitemList.length; i++) {
+                    $("#spkill").append(
+                        `<div class='index-card-container course-card-container container'>
+							<a  class='course-card' href="myGoodsDetail.html?pId=${d.data.orderitemList[i].pId}" data-track="sztj-1-2">
+								<div class='course-card-top hashadow'>
+									<img class="course-banner" src="${d.data.orderitemList[i].pImage}">
+								</div>
+								<div class='course-card-content'>
+									<h3 class='course-card-name'>${d.data.orderitemList[i].pName}</h3>
+									<div class='clearfix course-card-bottom'>
+										<div class='course-card-info'>
+											<span><i class="icon-set_sns"></i>${d.data.orderitemList[i].oiCount}</span>
+											<span class="course-star-box"><i class="icon-star2 on"></i><i class="icon-star2 on"></i><i class="icon-star2 on"></i><i class="icon-star2 on"></i><i class="icon-star2 on"></i></span>
+										</div>
+										<div class='course-card-price sales'>￥${d.data.orderitemList[i].subtotal}
+									</div>
+								</div>
+							</a>
+						</div>`)
+                }
+            } else {
+                $("#teacher").append("<p style='text-align: center;'>服务器丢失了</p>")
+            }
+        }
+    });
+
+    $(".set_btn").hover(function () {
+
+        $(this).addClass("set_btn user-card-box hover");
+        $(this).siblings().removeClass('hover');
+
+    }, function () {
+        $(this).removeClass('hover');
+    });
+
+    $("#set_btn").mouseleave(function () {
+        $(this).removeClass('on');
+    });
+</script>
+</body>
+</html>

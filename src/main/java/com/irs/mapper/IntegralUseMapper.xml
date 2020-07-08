@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.IntegralUseMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.IntegralUse">
+    <id column="iu_id" jdbcType="INTEGER" property="iuId" />
+    <result column="iu_num" jdbcType="INTEGER" property="iuNum" />
+    <result column="iu_price" jdbcType="VARCHAR" property="iuPrice" />
+    <result column="R1" jdbcType="VARCHAR" property="r1" />
+    <result column="R2" jdbcType="VARCHAR" property="r2" />
+    <result column="d_id" jdbcType="INTEGER" property="dId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    iu_id, iu_num, iu_price, R1, R2, d_id
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.IntegralUseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from integral_use
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from integral_use
+    where iu_id = #{iuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from integral_use
+    where iu_id = #{iuId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.IntegralUseExample">
+    delete from integral_use
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.IntegralUse">
+    insert into integral_use (iu_id, iu_num, iu_price, 
+      R1, R2, d_id)
+    values (#{iuId,jdbcType=INTEGER}, #{iuNum,jdbcType=INTEGER}, #{iuPrice,jdbcType=VARCHAR}, 
+      #{r1,jdbcType=VARCHAR}, #{r2,jdbcType=VARCHAR}, #{dId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.IntegralUse">
+    insert into integral_use
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="iuId != null">
+        iu_id,
+      </if>
+      <if test="iuNum != null">
+        iu_num,
+      </if>
+      <if test="iuPrice != null">
+        iu_price,
+      </if>
+      <if test="r1 != null">
+        R1,
+      </if>
+      <if test="r2 != null">
+        R2,
+      </if>
+      <if test="dId != null">
+        d_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="iuId != null">
+        #{iuId,jdbcType=INTEGER},
+      </if>
+      <if test="iuNum != null">
+        #{iuNum,jdbcType=INTEGER},
+      </if>
+      <if test="iuPrice != null">
+        #{iuPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="r1 != null">
+        #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null">
+        #{dId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.IntegralUseExample" resultType="java.lang.Long">
+    select count(*) from integral_use
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update integral_use
+    <set>
+      <if test="record.iuId != null">
+        iu_id = #{record.iuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.iuNum != null">
+        iu_num = #{record.iuNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.iuPrice != null">
+        iu_price = #{record.iuPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r1 != null">
+        R1 = #{record.r1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r2 != null">
+        R2 = #{record.r2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dId != null">
+        d_id = #{record.dId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update integral_use
+    set iu_id = #{record.iuId,jdbcType=INTEGER},
+      iu_num = #{record.iuNum,jdbcType=INTEGER},
+      iu_price = #{record.iuPrice,jdbcType=VARCHAR},
+      R1 = #{record.r1,jdbcType=VARCHAR},
+      R2 = #{record.r2,jdbcType=VARCHAR},
+      d_id = #{record.dId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.IntegralUse">
+    update integral_use
+    <set>
+      <if test="iuNum != null">
+        iu_num = #{iuNum,jdbcType=INTEGER},
+      </if>
+      <if test="iuPrice != null">
+        iu_price = #{iuPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="r1 != null">
+        R1 = #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        R2 = #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null">
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where iu_id = #{iuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.IntegralUse">
+    update integral_use
+    set iu_num = #{iuNum,jdbcType=INTEGER},
+      iu_price = #{iuPrice,jdbcType=VARCHAR},
+      R1 = #{r1,jdbcType=VARCHAR},
+      R2 = #{r2,jdbcType=VARCHAR},
+      d_id = #{dId,jdbcType=INTEGER}
+    where iu_id = #{iuId,jdbcType=INTEGER}
+  </update>
+</mapper>

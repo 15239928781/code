@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.ShopCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.ShopCategory">
+    <id column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+    <result column="parentid" jdbcType="INTEGER" property="parentid" />
+    <result column="c_image" jdbcType="VARCHAR" property="cImage" />
+    <result column="c_Isshow" jdbcType="INTEGER" property="cIsshow" />
+    <result column="c_sorting" jdbcType="INTEGER" property="cSorting" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    c_id, c_name, parentid, c_image, c_Isshow, c_sorting
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.ShopCategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_category
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_category
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.ShopCategoryExample">
+    delete from shop_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.ShopCategory">
+    insert into shop_category (c_id, c_name, parentid, 
+      c_image, c_Isshow, c_sorting
+      )
+    values (#{cId,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{cImage,jdbcType=VARCHAR}, #{cIsshow,jdbcType=INTEGER}, #{cSorting,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.ShopCategory">
+    insert into shop_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="cName != null">
+        c_name,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+      <if test="cImage != null">
+        c_image,
+      </if>
+      <if test="cIsshow != null">
+        c_Isshow,
+      </if>
+      <if test="cSorting != null">
+        c_sorting,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="cName != null">
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="cImage != null">
+        #{cImage,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsshow != null">
+        #{cIsshow,jdbcType=INTEGER},
+      </if>
+      <if test="cSorting != null">
+        #{cSorting,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.ShopCategoryExample" resultType="java.lang.Long">
+    select count(*) from shop_category
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shop_category
+    <set>
+      <if test="record.cId != null">
+        c_id = #{record.cId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cName != null">
+        c_name = #{record.cName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        parentid = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cImage != null">
+        c_image = #{record.cImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cIsshow != null">
+        c_Isshow = #{record.cIsshow,jdbcType=INTEGER},
+      </if>
+      <if test="record.cSorting != null">
+        c_sorting = #{record.cSorting,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shop_category
+    set c_id = #{record.cId,jdbcType=INTEGER},
+      c_name = #{record.cName,jdbcType=VARCHAR},
+      parentid = #{record.parentid,jdbcType=INTEGER},
+      c_image = #{record.cImage,jdbcType=VARCHAR},
+      c_Isshow = #{record.cIsshow,jdbcType=INTEGER},
+      c_sorting = #{record.cSorting,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.ShopCategory">
+    update shop_category
+    <set>
+      <if test="cName != null">
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="cImage != null">
+        c_image = #{cImage,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsshow != null">
+        c_Isshow = #{cIsshow,jdbcType=INTEGER},
+      </if>
+      <if test="cSorting != null">
+        c_sorting = #{cSorting,jdbcType=INTEGER},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.ShopCategory">
+    update shop_category
+    set c_name = #{cName,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      c_image = #{cImage,jdbcType=VARCHAR},
+      c_Isshow = #{cIsshow,jdbcType=INTEGER},
+      c_sorting = #{cSorting,jdbcType=INTEGER}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <select id="selepid" resultMap="BaseResultMap">
+    select distinct parentid from shop_category;
+  </select>
+</mapper>

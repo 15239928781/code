@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irs.mapper.ShopRechargeMapper" >
+  <resultMap id="BaseResultMap" type="com.irs.pojo.ShopRecharge" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="r_money" property="rMoney" jdbcType="DOUBLE" />
+    <result column="pay_time" property="payTime" jdbcType="VARCHAR" />
+    <result column="rt_id" property="rtId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="r_desc" property="rDesc" jdbcType="VARCHAR" />
+    <result column="ordernum" property="ordernum" jdbcType="VARCHAR" />
+    <result column="r_addtime" property="rAddtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    r_id, r_money, pay_time, rt_id, u_id, r_desc, ordernum, r_addtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.irs.pojo.ShopRechargeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_recharge
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop_recharge
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.ShopRechargeExample" >
+    delete from shop_recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.ShopRecharge" >
+    insert into shop_recharge (r_id, r_money, pay_time, 
+      rt_id, u_id, r_desc, ordernum, 
+      r_addtime)
+    values (#{rId,jdbcType=INTEGER}, #{rMoney,jdbcType=DOUBLE}, #{payTime,jdbcType=VARCHAR}, 
+      #{rtId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{rDesc,jdbcType=VARCHAR}, #{ordernum,jdbcType=VARCHAR}, 
+      #{rAddtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.ShopRecharge" >
+    insert into shop_recharge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rMoney != null" >
+        r_money,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="rtId != null" >
+        rt_id,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="rDesc != null" >
+        r_desc,
+      </if>
+      <if test="ordernum != null" >
+        ordernum,
+      </if>
+      <if test="rAddtime != null" >
+        r_addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rMoney != null" >
+        #{rMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="rtId != null" >
+        #{rtId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="rDesc != null" >
+        #{rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="rAddtime != null" >
+        #{rAddtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.ShopRechargeExample" resultType="java.lang.Integer" >
+    select count(*) from shop_recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shop_recharge
+    <set >
+      <if test="record.rId != null" >
+        r_id = #{record.rId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rMoney != null" >
+        r_money = #{record.rMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rtId != null" >
+        rt_id = #{record.rtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null" >
+        u_id = #{record.uId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rDesc != null" >
+        r_desc = #{record.rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordernum != null" >
+        ordernum = #{record.ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rAddtime != null" >
+        r_addtime = #{record.rAddtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shop_recharge
+    set r_id = #{record.rId,jdbcType=INTEGER},
+      r_money = #{record.rMoney,jdbcType=DOUBLE},
+      pay_time = #{record.payTime,jdbcType=VARCHAR},
+      rt_id = #{record.rtId,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=INTEGER},
+      r_desc = #{record.rDesc,jdbcType=VARCHAR},
+      ordernum = #{record.ordernum,jdbcType=VARCHAR},
+      r_addtime = #{record.rAddtime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.ShopRecharge" >
+    update shop_recharge
+    <set >
+      <if test="rMoney != null" >
+        r_money = #{rMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="rtId != null" >
+        rt_id = #{rtId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="rDesc != null" >
+        r_desc = #{rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null" >
+        ordernum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="rAddtime != null" >
+        r_addtime = #{rAddtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.ShopRecharge" >
+    update shop_recharge
+    set r_money = #{rMoney,jdbcType=DOUBLE},
+      pay_time = #{payTime,jdbcType=VARCHAR},
+      rt_id = #{rtId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=INTEGER},
+      r_desc = #{rDesc,jdbcType=VARCHAR},
+      ordernum = #{ordernum,jdbcType=VARCHAR},
+      r_addtime = #{rAddtime,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

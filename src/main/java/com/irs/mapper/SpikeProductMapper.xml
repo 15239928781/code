@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.SpikeProductMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.SpikeProduct">
+    <id column="sp_id" jdbcType="INTEGER" property="spId" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="p_oldprice" jdbcType="VARCHAR" property="pOldprice" />
+    <result column="p_nowprice" jdbcType="VARCHAR" property="pNowprice" />
+    <result column="sp_status" jdbcType="INTEGER" property="spStatus" />
+    <result column="sp_num" jdbcType="INTEGER" property="spNum" />
+    <result column="r1" jdbcType="VARCHAR" property="r1" />
+    <result column="r2" jdbcType="VARCHAR" property="r2" />
+    <result column="p_image" jdbcType="VARCHAR" property="pImage" />
+    <result column="p_desc" jdbcType="VARCHAR" property="pDesc" />
+    <result column="p_createtime" jdbcType="VARCHAR" property="pCreatetime" />
+    <result column="p_endtime" jdbcType="VARCHAR" property="pEndtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sp_id, s_id, p_id, p_name, p_oldprice, p_nowprice, sp_status, sp_num, r1, r2, p_image, 
+    p_desc, p_createtime, p_endtime
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.SpikeProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from spike_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from spike_product
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from spike_product
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.SpikeProductExample">
+    delete from spike_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.SpikeProduct">
+    insert into spike_product (sp_id, s_id, p_id, 
+      p_name, p_oldprice, p_nowprice, 
+      sp_status, sp_num, r1, 
+      r2, p_image, p_desc, 
+      p_createtime, p_endtime)
+    values (#{spId,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, 
+      #{pName,jdbcType=VARCHAR}, #{pOldprice,jdbcType=VARCHAR}, #{pNowprice,jdbcType=VARCHAR}, 
+      #{spStatus,jdbcType=INTEGER}, #{spNum,jdbcType=INTEGER}, #{r1,jdbcType=VARCHAR}, 
+      #{r2,jdbcType=VARCHAR}, #{pImage,jdbcType=VARCHAR}, #{pDesc,jdbcType=VARCHAR}, 
+      #{pCreatetime,jdbcType=VARCHAR}, #{pEndtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.SpikeProduct">
+    insert into spike_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="spId != null">
+        sp_id,
+      </if>
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="pName != null">
+        p_name,
+      </if>
+      <if test="pOldprice != null">
+        p_oldprice,
+      </if>
+      <if test="pNowprice != null">
+        p_nowprice,
+      </if>
+      <if test="spStatus != null">
+        sp_status,
+      </if>
+      <if test="spNum != null">
+        sp_num,
+      </if>
+      <if test="r1 != null">
+        r1,
+      </if>
+      <if test="r2 != null">
+        r2,
+      </if>
+      <if test="pImage != null">
+        p_image,
+      </if>
+      <if test="pDesc != null">
+        p_desc,
+      </if>
+      <if test="pCreatetime != null">
+        p_createtime,
+      </if>
+      <if test="pEndtime != null">
+        p_endtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="spId != null">
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pOldprice != null">
+        #{pOldprice,jdbcType=VARCHAR},
+      </if>
+      <if test="pNowprice != null">
+        #{pNowprice,jdbcType=VARCHAR},
+      </if>
+      <if test="spStatus != null">
+        #{spStatus,jdbcType=INTEGER},
+      </if>
+      <if test="spNum != null">
+        #{spNum,jdbcType=INTEGER},
+      </if>
+      <if test="r1 != null">
+        #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="pImage != null">
+        #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null">
+        #{pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pCreatetime != null">
+        #{pCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="pEndtime != null">
+        #{pEndtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.SpikeProductExample" resultType="java.lang.Long">
+    select count(*) from spike_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update spike_product
+    <set>
+      <if test="record.spId != null">
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sId != null">
+        s_id = #{record.sId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pName != null">
+        p_name = #{record.pName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pOldprice != null">
+        p_oldprice = #{record.pOldprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pNowprice != null">
+        p_nowprice = #{record.pNowprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spStatus != null">
+        sp_status = #{record.spStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.spNum != null">
+        sp_num = #{record.spNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.r1 != null">
+        r1 = #{record.r1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r2 != null">
+        r2 = #{record.r2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pImage != null">
+        p_image = #{record.pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pDesc != null">
+        p_desc = #{record.pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pCreatetime != null">
+        p_createtime = #{record.pCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pEndtime != null">
+        p_endtime = #{record.pEndtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update spike_product
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      s_id = #{record.sId,jdbcType=INTEGER},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      p_name = #{record.pName,jdbcType=VARCHAR},
+      p_oldprice = #{record.pOldprice,jdbcType=VARCHAR},
+      p_nowprice = #{record.pNowprice,jdbcType=VARCHAR},
+      sp_status = #{record.spStatus,jdbcType=INTEGER},
+      sp_num = #{record.spNum,jdbcType=INTEGER},
+      r1 = #{record.r1,jdbcType=VARCHAR},
+      r2 = #{record.r2,jdbcType=VARCHAR},
+      p_image = #{record.pImage,jdbcType=VARCHAR},
+      p_desc = #{record.pDesc,jdbcType=VARCHAR},
+      p_createtime = #{record.pCreatetime,jdbcType=VARCHAR},
+      p_endtime = #{record.pEndtime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.SpikeProduct">
+    update spike_product
+    <set>
+      <if test="sId != null">
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pOldprice != null">
+        p_oldprice = #{pOldprice,jdbcType=VARCHAR},
+      </if>
+      <if test="pNowprice != null">
+        p_nowprice = #{pNowprice,jdbcType=VARCHAR},
+      </if>
+      <if test="spStatus != null">
+        sp_status = #{spStatus,jdbcType=INTEGER},
+      </if>
+      <if test="spNum != null">
+        sp_num = #{spNum,jdbcType=INTEGER},
+      </if>
+      <if test="r1 != null">
+        r1 = #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        r2 = #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="pImage != null">
+        p_image = #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null">
+        p_desc = #{pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pCreatetime != null">
+        p_createtime = #{pCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="pEndtime != null">
+        p_endtime = #{pEndtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.SpikeProduct">
+    update spike_product
+    set s_id = #{sId,jdbcType=INTEGER},
+      p_id = #{pId,jdbcType=INTEGER},
+      p_name = #{pName,jdbcType=VARCHAR},
+      p_oldprice = #{pOldprice,jdbcType=VARCHAR},
+      p_nowprice = #{pNowprice,jdbcType=VARCHAR},
+      sp_status = #{spStatus,jdbcType=INTEGER},
+      sp_num = #{spNum,jdbcType=INTEGER},
+      r1 = #{r1,jdbcType=VARCHAR},
+      r2 = #{r2,jdbcType=VARCHAR},
+      p_image = #{pImage,jdbcType=VARCHAR},
+      p_desc = #{pDesc,jdbcType=VARCHAR},
+      p_createtime = #{pCreatetime,jdbcType=VARCHAR},
+      p_endtime = #{pEndtime,jdbcType=VARCHAR}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

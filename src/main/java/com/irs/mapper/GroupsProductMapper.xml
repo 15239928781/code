@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.GroupsProductMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.GroupsProduct">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="a_id" jdbcType="INTEGER" property="aId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="a_oldprice" jdbcType="VARCHAR" property="aOldprice" />
+    <result column="a_nowprice" jdbcType="VARCHAR" property="aNowprice" />
+    <result column="a_num" jdbcType="INTEGER" property="aNum" />
+    <result column="R1" jdbcType="VARCHAR" property="r1" />
+    <result column="R2" jdbcType="VARCHAR" property="r2" />
+    <result column="a_status" jdbcType="INTEGER" property="aStatus" />
+    <result column="p_image" jdbcType="VARCHAR" property="pImage" />
+    <result column="p_desc" jdbcType="VARCHAR" property="pDesc" />
+    <result column="p_createtime" jdbcType="VARCHAR" property="pCreatetime" />
+    <result column="p_endtime" jdbcType="VARCHAR" property="pEndtime" />
+    <result column="p_validity" jdbcType="INTEGER" property="pValidity" />
+    <result column="p_member" jdbcType="INTEGER" property="pMember" />
+    <result column="a_maxnum" jdbcType="INTEGER" property="aMaxnum" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, p_id, a_id, p_name, a_oldprice, a_nowprice, a_num, R1, R2, a_status, p_image, 
+    p_desc, p_createtime, p_endtime, p_validity, p_member, a_maxnum
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.GroupsProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from groups_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from groups_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from groups_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.GroupsProductExample">
+    delete from groups_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.irs.pojo.GroupsProduct">
+    insert into groups_product (id, p_id, a_id, 
+      p_name, a_oldprice, a_nowprice, 
+      a_num, R1, R2, a_status, 
+      p_image, p_desc, p_createtime, 
+      p_endtime, p_validity, p_member, 
+      a_maxnum)
+    values (#{id,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{aId,jdbcType=INTEGER}, 
+      #{pName,jdbcType=VARCHAR}, #{aOldprice,jdbcType=VARCHAR}, #{aNowprice,jdbcType=VARCHAR}, 
+      #{aNum,jdbcType=INTEGER}, #{r1,jdbcType=VARCHAR}, #{r2,jdbcType=VARCHAR}, #{aStatus,jdbcType=INTEGER}, 
+      #{pImage,jdbcType=VARCHAR}, #{pDesc,jdbcType=VARCHAR}, #{pCreatetime,jdbcType=VARCHAR}, 
+      #{pEndtime,jdbcType=VARCHAR}, #{pValidity,jdbcType=INTEGER}, #{pMember,jdbcType=INTEGER}, 
+      #{aMaxnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.irs.pojo.GroupsProduct">
+    insert into groups_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="aId != null">
+        a_id,
+      </if>
+      <if test="pName != null">
+        p_name,
+      </if>
+      <if test="aOldprice != null">
+        a_oldprice,
+      </if>
+      <if test="aNowprice != null">
+        a_nowprice,
+      </if>
+      <if test="aNum != null">
+        a_num,
+      </if>
+      <if test="r1 != null">
+        R1,
+      </if>
+      <if test="r2 != null">
+        R2,
+      </if>
+      <if test="aStatus != null">
+        a_status,
+      </if>
+      <if test="pImage != null">
+        p_image,
+      </if>
+      <if test="pDesc != null">
+        p_desc,
+      </if>
+      <if test="pCreatetime != null">
+        p_createtime,
+      </if>
+      <if test="pEndtime != null">
+        p_endtime,
+      </if>
+      <if test="pValidity != null">
+        p_validity,
+      </if>
+      <if test="pMember != null">
+        p_member,
+      </if>
+      <if test="aMaxnum != null">
+        a_maxnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="aId != null">
+        #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="aOldprice != null">
+        #{aOldprice,jdbcType=VARCHAR},
+      </if>
+      <if test="aNowprice != null">
+        #{aNowprice,jdbcType=VARCHAR},
+      </if>
+      <if test="aNum != null">
+        #{aNum,jdbcType=INTEGER},
+      </if>
+      <if test="r1 != null">
+        #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="aStatus != null">
+        #{aStatus,jdbcType=INTEGER},
+      </if>
+      <if test="pImage != null">
+        #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null">
+        #{pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pCreatetime != null">
+        #{pCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="pEndtime != null">
+        #{pEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pValidity != null">
+        #{pValidity,jdbcType=INTEGER},
+      </if>
+      <if test="pMember != null">
+        #{pMember,jdbcType=INTEGER},
+      </if>
+      <if test="aMaxnum != null">
+        #{aMaxnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.GroupsProductExample" resultType="java.lang.Long">
+    select count(*) from groups_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update groups_product
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.aId != null">
+        a_id = #{record.aId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pName != null">
+        p_name = #{record.pName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aOldprice != null">
+        a_oldprice = #{record.aOldprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aNowprice != null">
+        a_nowprice = #{record.aNowprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aNum != null">
+        a_num = #{record.aNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.r1 != null">
+        R1 = #{record.r1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.r2 != null">
+        R2 = #{record.r2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aStatus != null">
+        a_status = #{record.aStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.pImage != null">
+        p_image = #{record.pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pDesc != null">
+        p_desc = #{record.pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pCreatetime != null">
+        p_createtime = #{record.pCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pEndtime != null">
+        p_endtime = #{record.pEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pValidity != null">
+        p_validity = #{record.pValidity,jdbcType=INTEGER},
+      </if>
+      <if test="record.pMember != null">
+        p_member = #{record.pMember,jdbcType=INTEGER},
+      </if>
+      <if test="record.aMaxnum != null">
+        a_maxnum = #{record.aMaxnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update groups_product
+    set id = #{record.id,jdbcType=INTEGER},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      a_id = #{record.aId,jdbcType=INTEGER},
+      p_name = #{record.pName,jdbcType=VARCHAR},
+      a_oldprice = #{record.aOldprice,jdbcType=VARCHAR},
+      a_nowprice = #{record.aNowprice,jdbcType=VARCHAR},
+      a_num = #{record.aNum,jdbcType=INTEGER},
+      R1 = #{record.r1,jdbcType=VARCHAR},
+      R2 = #{record.r2,jdbcType=VARCHAR},
+      a_status = #{record.aStatus,jdbcType=INTEGER},
+      p_image = #{record.pImage,jdbcType=VARCHAR},
+      p_desc = #{record.pDesc,jdbcType=VARCHAR},
+      p_createtime = #{record.pCreatetime,jdbcType=VARCHAR},
+      p_endtime = #{record.pEndtime,jdbcType=VARCHAR},
+      p_validity = #{record.pValidity,jdbcType=INTEGER},
+      p_member = #{record.pMember,jdbcType=INTEGER},
+      a_maxnum = #{record.aMaxnum,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.GroupsProduct">
+    update groups_product
+    <set>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="aId != null">
+        a_id = #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="aOldprice != null">
+        a_oldprice = #{aOldprice,jdbcType=VARCHAR},
+      </if>
+      <if test="aNowprice != null">
+        a_nowprice = #{aNowprice,jdbcType=VARCHAR},
+      </if>
+      <if test="aNum != null">
+        a_num = #{aNum,jdbcType=INTEGER},
+      </if>
+      <if test="r1 != null">
+        R1 = #{r1,jdbcType=VARCHAR},
+      </if>
+      <if test="r2 != null">
+        R2 = #{r2,jdbcType=VARCHAR},
+      </if>
+      <if test="aStatus != null">
+        a_status = #{aStatus,jdbcType=INTEGER},
+      </if>
+      <if test="pImage != null">
+        p_image = #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pDesc != null">
+        p_desc = #{pDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pCreatetime != null">
+        p_createtime = #{pCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="pEndtime != null">
+        p_endtime = #{pEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pValidity != null">
+        p_validity = #{pValidity,jdbcType=INTEGER},
+      </if>
+      <if test="pMember != null">
+        p_member = #{pMember,jdbcType=INTEGER},
+      </if>
+      <if test="aMaxnum != null">
+        a_maxnum = #{aMaxnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.GroupsProduct">
+    update groups_product
+    set p_id = #{pId,jdbcType=INTEGER},
+      a_id = #{aId,jdbcType=INTEGER},
+      p_name = #{pName,jdbcType=VARCHAR},
+      a_oldprice = #{aOldprice,jdbcType=VARCHAR},
+      a_nowprice = #{aNowprice,jdbcType=VARCHAR},
+      a_num = #{aNum,jdbcType=INTEGER},
+      R1 = #{r1,jdbcType=VARCHAR},
+      R2 = #{r2,jdbcType=VARCHAR},
+      a_status = #{aStatus,jdbcType=INTEGER},
+      p_image = #{pImage,jdbcType=VARCHAR},
+      p_desc = #{pDesc,jdbcType=VARCHAR},
+      p_createtime = #{pCreatetime,jdbcType=VARCHAR},
+      p_endtime = #{pEndtime,jdbcType=VARCHAR},
+      p_validity = #{pValidity,jdbcType=INTEGER},
+      p_member = #{pMember,jdbcType=INTEGER},
+      a_maxnum = #{aMaxnum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

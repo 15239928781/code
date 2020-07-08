@@ -1,0 +1,553 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>白又白-青少儿美育专家</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit"/>
+    <meta property="qc:admins" content="77103107776157736375"/>
+    <meta property="wb:webmaster" content="c4f857219bfae3cb"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta http-equiv="Cache-Control" content="no-transform "/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="360-site-verification" content="efec9ca9c0c2bf49b8f54f8ea4626ea8"/>
+    <meta name="baidu-site-verification" content="f81e4a13096b3a7cab15fe1d39773a4e"/>
+    <link rel="icon" href="static2/images/logo-icon.png">
+    <link rel="stylesheet" href="static2/css/moco.min.css" type="text/css"/>
+    <link rel="stylesheet" href="static2/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="static2/css/common.css">
+    <link rel="stylesheet" href="static2/css/header.css">
+    <link rel="stylesheet" href="static2/css/0938fa5423c94e9f9c9af663e26b4c3d.css" type="text/css"/>
+    <style>
+        .course-nav-item:hover {
+            cursor: pointer;
+        }
+
+        .card-sets:hover {
+            cursor: pointer;
+        }
+
+        .clearfix:hover {
+            cursor: pointer;
+        }
+
+        /*我的课程*/
+        .my-courses {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            right: 50px;
+            bottom: 100px;
+            width: 100px;
+            height: 100px;
+            background-color: #1D7419;
+            border-radius: 100px
+        }
+
+        .my-courses img {
+            width: 40px;
+            height: 40px
+        }
+
+        .my-courses span {
+            color: white;
+            padding-bottom: 6px
+        }
+    </style>
+</head>
+<body id="index">
+<!-- 顶部广告位 -->
+<div id="moco-top-advertising"></div>
+<div id="header">
+    <div class="page-container clearfix" id="nav" style="background-color: #fff !important;">
+        <div id="logo" class="logo">
+            <a title="首页">
+                <img style="height: 48px;margin-top: 12px" title="白又白" src="static2/images/logo.png">
+            </a>
+        </div>
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="app-download  user-card-box" id="js-app-load">
+                    <a target="_blank" style="width:60px;">关注公众号</a>
+                    <div class="g-user-card">
+                        <img src="static2/images/code.jpg">
+                    </div>
+                </li>
+                <li class="header-signin" id="login">
+                    <a href="login.html" id="js-signin-btn">登录</a>
+
+                </li>
+                <li class="set_btn user-card-box" id="header-user-card" style="display: none;">
+                    <a id="header-avator" class="user-card-item js-header-avator" action-type="my_menu" target="_self">
+                        <img style="width: 40px;height: 40px" width="40" height="40" id="headerImg"
+                             src="//img3.mukewang.com/582c2f900001f84406400640-100-100.jpg">
+                        <i class="myspace_remind" style="display: none;"></i>
+                        <span style="display: none;">动态提醒</span>
+                    </a>
+                    <div class="g-user-card">
+                        <div class="card-inner">
+                            <!--个人信息-->
+                            <div class="card-top clearfix">
+                                <a class="l"><img
+                                        src="//img3.mukewang.com/582c2f900001f84406400640-100-100.jpg"
+                                        alt="qq__49544366693" id="Imgsrc">
+                                </a>
+                                <div class="card-top-right-box l">
+                                    <div>
+                                        <span class="name text-ellipsis" id="uName">byb_49544366693</span>
+                                    </div>
+                                    <div class="meta">
+                                        <span>积分<b id="js-user-credit">0</b></span>
+                                        <span><b id="js-user-mp">普通会员</b></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--我的课程-->
+                            <div class="user-center-box">
+                                <ul class="clearfix">
+                                    <li class="l">
+                                        <a href="myProduct.html">
+                                            <span class="user-center-icon icon-tick">我的课程</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!--安全退出-->
+                            <div class="card-sets clearfix"><a
+                                    class="l" onclick="edit();">安全退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--悬浮已购课程按钮-->
+<div id="myCourses" class="my-courses">
+    <img src="static2/images/my-courses.png" alt="已购课程">
+    <span>我的课程</span>
+</div>
+
+<!--方向,分类-->
+<div class="wrap ">
+    <div class="top">
+
+        <!--搜索课程-->
+        <div class="course-top clearfix">
+            <div class="course-top-search">
+                <div class="search-area" data-search="top-banner">
+                    <input class="search-input" data-suggest-trigger="suggest-trigger" placeholder="搜索课程" type="text"
+                           autocomplete="off" name="pName" id="pName">
+                    <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                    <ul class="search-area-result" data-suggest-result="suggest-result" style=""></ul>
+                </div>
+                <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+            </div>
+        </div>
+
+        <!--方向，分类-->
+        <div class="course-content">
+            <div class="course-nav-box">
+
+                <!--方向-->
+                <div class="course-nav-row clearfix">
+                    <span class="hd l">方向：</span>
+                    <div class="bd">
+                        <ul class="" id="parentIds">
+                        </ul>
+                    </div>
+                </div>
+
+                <!--分类-->
+                <div class="course-nav-row course-nav-skills clearfix">
+                    <div class="js-course-skills">
+                        <span class="hd l">分类：</span>
+                        <div class="bd">
+                            <ul class="" id="ziId">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--主体-->
+<div id="main">
+    <!--所有课程-->
+    <div class="bgfff" style="overflow: auto;">
+        <div class='container-types clearfix'>
+
+            <!--所有课程标题-->
+            <h3 class='types-title'>
+                <span class="tit-icon icon-shizhan-l tit-icon-l"></span><em>所</em>／<em>有</em>／<em>课</em>／<em>程</em><span
+                    class="tit-icon icon-shizhan-r tit-icon-r"></span>
+            </h3>
+
+            <!--课程item-->
+            <div class='clearfix types-content' id="spkill"></div>
+        </div>
+    </div>
+</div>
+
+<!--底部导航栏-->
+<div class="footer idx-minwidth">
+    <div class="container">
+        <div class="footer-wrap idx-width">
+            <div class="footer-sns clearfix">
+            </div>
+        </div>
+        <div class="footer-link">
+            <a target="_blank" title="关于我们">关于我们</a>
+            <a target="_blank" title="联系我们">联系我们</a>
+            <a target="_blank" title="帮助中心">帮助中心</a>
+            <a target="_blank" title="意见反馈">意见反馈</a>
+        </div>
+    </div>
+</div>
+<!-- 静态储存区,全局变量 -->
+<script src="static2/js/extern.js"></script>
+<script type="text/javascript" src="static2/js/jquery.min.js"></script>
+<script type="text/javascript">
+    // 我的课程按钮
+    var myCourses = my$('myCourses')
+    myCourses.onclick = function () {
+        window.location.href = "myProduct.html";
+    }
+
+    // 获取个人信息
+    $.ajax({
+        type: "post",
+        url: ctx + "/ssm/front/getUserByIdPC",
+        async: true,
+        data: {
+            uId: uId,
+            token: getToken()
+        },
+        success: function (d) {
+            d = JSON.parse(d)
+            // console.log(d)
+            if (d.data.length < 1) {
+                window.location.href = "login.html";
+            }
+            if (d.status == 204) {
+                window.location.href = "login.html";
+            } else {
+                $("#header-user-card").css("display", "block");
+                $("#login").css("display", "none");
+                $("#headerImg").attr("src", d.data[0].uImg);
+                $("#Imgsrc").attr("src", d.data[0].uImg);
+                $("#uName").text(d.data[0].uName)
+                $("#js-user-credit").text(d.data[0].uIntegral)
+                $("#js-user-mp").text(d.data[0].levelName)
+            }
+        },
+        error: function (error) {
+            window.location.href = "login.html";
+        }
+    });
+
+    $.ajax({
+        type: "post",
+        url: ctx + "/ssm/front/propaihang",
+        success: function (d) {
+            if (d.code == 0) {
+                for (var i = 0; i < d.data.length; i++) {
+                    $("#teacher").append(
+                        `<a class='lecturer-item' data-track="jyms-1-1">
+						<img class='lecturer-uimg' src='${d.data[i].tPic}' title='${d.data[i].tName}' />
+						<span class='lecturer-name'>${d.data[i].tName}</span>
+						<span class='lecturer-title'></span>
+						<span class='lecturer-p' title='${d.data[i].tPosition}'>${d.data[i].tPosition}</span>
+						</a>`)
+                }
+            } else {
+                $("#teacher").append("<p style='text-align: center;'>服务器丢失了</p>")
+            }
+        }
+    });
+
+    $.ajax({
+        type: "post",
+        url: ctx + "/ssm/front/getproduct",
+        success: function (d) {
+            var d = JSON.parse(d);
+            // console.log(d)
+            if (d.status == 200) {
+                for (var i = 0; i < d.data.length; i++) {
+                    // console.log('---getproduct-------------------------------------------------------')
+                    // console.log(d.data[i].pValidity)
+                    // console.log(d.data[i])
+                    // pValidity 0是video,1是ppt，2是pdf,3实物商品
+                    if (d.data[i].pValidity === 0) {
+                        getGoodsItem(d.data[i])
+                    } else if (d.data[i].pValidity === 1 || d.data[i].pValidity === 2) {
+                        getGoodsItem(d.data[i])
+                    }
+                }
+            } else {
+                $("#teacher").append("<p style='text-align: center;'>服务器丢失了</p>")
+            }
+        }
+    });
+
+    $.ajax({
+        type: "post",
+        url: ctx + "/ssm/front/getmenu",
+        success: function (d) {
+            d = JSON.parse(d);
+            var data = d.data;
+            getcIdBypId('testNull', data[0].cId)
+            // console.log(data)
+            var str = "";
+            var bstr = "";
+            for (var i = 0; i < data.length; i++) {
+                if (i == 0) {
+                    str += '<li class="course-nav-item\n' +
+                        '                                     on" onclick="getcIdBypId(this,' + data[i].cId + ')">\n' +
+                        '<a id="' + data[i].cId + '" data-ct="fe">' + data[i].cName + '</a>\n' +
+                        '</li>';
+                    for (var j = 0; j < data[i].son.length; j++) {
+                        if (j == 0) {
+                            bstr += '<li class="course-nav-item on" onclick="getMenuBycId(this,' + data[i].son[j].cId + ')">\n' +
+                                '<a>' + data[i].son[j].cName + '</a>\n' +
+                                '</li>';
+                        } else {
+                            bstr += '<li class="course-nav-item " onclick="getMenuBycId(this,' + data[i].son[j].cId + ')">\n' +
+                                '<a  data-id="1261" data-ct="fe">' + data[i].son[j].cName + '</a>\n' +
+                                '</li>'
+                        }
+                    }
+                    $("#ziId").html(bstr);
+                }
+                else {
+                    str += '<li class="course-nav-item\n' +
+                        '                                    " onclick="getcIdBypId(this,' + data[i].cId + ')">\n' +
+                        '<a data-ct="be">' + data[i].cName + '</a>\n' +
+                        '</li>';
+                }
+            }
+            $("#parentIds").html(str);
+        }
+    });
+
+    // 展示商品item
+    function getGoodsItem(obj) {
+        $("#spkill").append(
+            `<div class='index-card-container course-card-container container containerhidden'>
+				<a  class='course-card' href="details.html?pId=${obj.pId}" data-track="sztj-1-2">
+					<div class='course-card-top hashadow'>
+						<img class="course-banner" src="${obj.pImage}">
+						<div class="course-label">
+							<label>${obj.categoryname}</label>
+						</div>
+					</div>
+					<div class='course-card-content'>
+						<h3 class='course-card-name'>${obj.pName}</h3>
+						<div class='clearfix course-card-bottom'>
+							<div class='course-card-info'>
+								<span><i class="icon-set_sns"></i>${obj.pNum}</span>
+								<span class="course-star-box"><i class="icon-star2 on"></i><i class="icon-star2 on"></i><i class="icon-star2 on"></i><i class="icon-star2 on"></i><i class="icon-star2 on"></i></span>
+							</div>
+							<div class='course-card-price sales'>￥${obj.pPrice}
+								<span class="cost-price">￥${obj.pOldprice}</span>
+						</div>
+					</div>
+				</a>
+			</div>`)
+    }
+
+    // 获取菜单
+    function getMenuBycId(obj, cId) {
+        // console.log(cId)
+        // console.log(obj)
+        $(obj).addClass("course-nav-item on")
+        $(obj).siblings().removeClass('on');
+        $.ajax({
+            type: "post",
+            url: ctx + "/ssm/front/getmenubycid?cId=" + cId,
+            success: function (d) {
+                var d = JSON.parse(d);
+                // console.log(d)
+                $("#spkill").html("")
+                if (d.status == 200) {
+                    for (var i = 0; i < d.data.length; i++) {
+                        $("#spkill").append(
+                            `<div class='index-card-container course-card-container container'>
+							    <a  class='course-card' href="details.html?cid=${d.data[i].pId}" data-track="sztj-1-2">
+								    <div class='course-card-top hashadow'>
+									    <img class="course-banner" src="${d.data[i].pImage}">
+                                    </div>
+                                    <div class='course-card-content'>
+                                        <h3 class='course-card-name'>${d.data[i].pName}</h3>
+                                    <div class='clearfix course-card-bottom'>
+                                        <div class='course-card-info'>
+                                            <span><i class="icon-set_sns"></i>${d.data[i].pNum}</span>
+                                            <span class="course-star-box">
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                            </span>
+                                        </div>
+                                        <div class='course-card-price sales'>￥${d.data[i].pPrice}
+                                            <span class="cost-price">￥${d.data[i].pOldprice}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>`
+                        )
+                    }
+                } else {
+                    $("#teacher").append("<p style='text-align: center;'>服务器丢失了</p>")
+                }
+            }
+        });
+    }
+
+    // 通过pId获取商品
+    function getcIdBypId(obj, pId) {
+        if (obj != 'testNull') {
+            $(obj).addClass("course-nav-item on")
+            $(obj).siblings().removeClass('on');
+        }
+        $.ajax({
+            type: "post",
+            url: ctx + "/ssm/front/getcIdBypId?pId=" + pId,
+            success: function (d) {
+                d = JSON.parse(d)
+                // console.log(d.data.productList)
+                var bstr = "";
+                for (var j = 0; j < d.data.categoryList.length; j++) {
+                    if (j == 0) {
+                        bstr += '<li class="course-nav-item on" onclick="getMenuBycId(this,' + d.data.categoryList[j].cId + ')">\n' +
+                            '<a>' + d.data.categoryList[j].cName + '</a>\n' +
+                            '</li>';
+                    } else {
+                        bstr += '<li class="course-nav-item " onclick="getMenuBycId(this,' + d.data.categoryList[j].cId + ')">\n' +
+                            '<a  data-id="1261" data-ct="fe">' + d.data.categoryList[j].cName + '</a>\n' +
+                            '</li>'
+                    }
+                }
+                $("#ziId").html(bstr);
+                $("#spkill").html("")
+                for (var i = 0; i < d.data.productList.length; i++) {
+
+                    $("#spkill").append(
+                        `<div class='index-card-container course-card-container container'>
+							<a class='course-card' href="details.html?pId=${d.data.productList[i].pId}" data-track="sztj-1-2">
+								<div class='course-card-top hashadow'>
+									<img class="course-banner" src="${d.data.productList[i].pImage}">
+                                </div>
+                                <div class='course-card-content'>
+                                    <h3 class='course-card-name'>${d.data.productList[i].pName}</h3>
+                                    <div class='clearfix course-card-bottom'>
+                                        <div class='course-card-info'>
+                                            <span><i class="icon-set_sns"></i>${d.data.productList[i].pNum}</span>
+                                            <span class="course-star-box">
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                                <i class="icon-star2 on"></i>
+                                            </span>
+                                        </div>
+                                        <div class='course-card-price sales'>￥${d.data.productList[i].pPrice}
+                                            <span class="cost-price">￥${d.data.productList[i].pOldprice}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>`
+                    )
+                }
+            }
+        })
+    }
+
+    // 搜索课程
+    $(".icon-search").click(function () {
+        var pName = $("#pName").val();
+        if (pName == "" || pName == undefined || pName == null) {
+            alert("请输入要搜索的课程");
+            return;
+        }
+        // console.log(pName)
+        $.ajax({
+            type: "post",
+            url: ctx + "/ssm/front/getProductBySearch?key=" + pName,
+            success: function (d) {
+                d = JSON.parse(d);
+                // console.log(d)
+                if (d.data == null) {
+                    alert("暂无商品")
+                } else {
+                    $("#spkill").html("")
+                    for (var i = 0; i < d.data.length; i++) {
+                        $("#spkill").append(
+                            `<div class='index-card-container course-card-container container'>
+							    <a class='course-card' href="details.html?cid=${d.data[i].pId}" data-track="sztj-1-2">
+								    <div class='course-card-top hashadow'>
+									    <img class="course-banner" src="${d.data[i].pImage}">
+                                    </div>
+                                    <div class='course-card-content'>
+                                        <h3 class='course-card-name'>${d.data[i].pName}</h3>
+                                        <div class='clearfix course-card-bottom'>
+                                            <div class='course-card-info'>
+                                                <span><i class="icon-set_sns"></i>${d.data[i].pNum}</span>
+                                                <span class="course-star-box">
+                                                    <i class="icon-star2 on"></i>
+                                                    <i class="icon-star2 on"></i>
+                                                    <i class="icon-star2 on"></i>
+                                                    <i class="icon-star2 on"></i>
+                                                    <i class="icon-star2 on"></i>
+                                                </span>
+                                            </div>
+                                            <div class='course-card-price sales'>￥${d.data[i].pPrice}
+                                                <span class="cost-price">￥${d.data[i].pOldprice}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>`
+                        )
+                    }
+                }
+            }
+        })
+    })
+
+    $(".set_btn").hover(function () {
+        $(this).addClass("set_btn user-card-box hover");
+        $(this).siblings().removeClass('hover');
+        $("#code").css("display", "block");
+    }, function () {
+        $(this).removeClass('hover');
+        $("#code").css("display", "none");
+    });
+
+    $("#set_btn").mouseleave(function () {
+        $(this).removeClass('on');
+    });
+
+    $("#js-app-load").hover(function () {
+        $(this).addClass("user-card-box hover");
+        $(this).siblings().removeClass('hover');
+    }, function () {
+        $(this).removeClass('hover');
+    });
+
+</script>
+</body>
+</html>

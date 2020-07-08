@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>白又白美术教研</title>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .wrapper {
+      max-width: 1000px;
+      height: 100vh;
+      margin: 0 auto;
+      background-color: #f2f2f2;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    .flex-around {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .flex-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .flex-align {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .flex-align-center {
+      display: flex;
+      align-items: center;
+    }
+
+    .flex-align-end {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .flex-wrap {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .backgroundImg {
+      width: 100vw;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .backgroundImg img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    .logo-box {
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo-box img {
+      width: 80%;
+    }
+
+    .content {
+      text-align: center;
+    }
+
+    .content p {
+      color: #18943B;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 40px;
+    }
+
+    .content .copy {
+      width: 50%;
+      background-color: #18943B;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 200;
+      margin-top: 20px;
+    }
+
+    .erCode {
+      margin: 20px 0;
+    }
+
+    .erCode img {
+      width: 280px;
+      height: 280px;
+    }
+
+    .desc .plan {
+      color: #999;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 0;
+    }
+
+    #success {
+      display: block;
+    }
+
+    #successEr {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="backgroundImg">
+      <img src="#" id="background" alt="">
+      <!--<img src="http://www.bybart.cn/ssm/file/showPic?fileName=64171e9d3d0c49c69549b772cf9581856030.jpg" id="background" alt="">-->
+    </div>
+    <div class="container">
+      <div class="logo-box">
+        <img src="./logo1.png" alt="">
+      </div>
+      <div class="content">
+        <p>恭喜报名成功！</p>
+        <div id="success">
+          <div class="button-box flex-center">
+            <p class="copy min" onclick="query()">点击加入课程</p>
+          </div>
+          <!-- <div class="button-box flex-center">
+            <p class="copy min" onclick="query()">点击加入油画课程</p>
+          </div>
+          <div class="button-box flex-center">
+            <p class="copy min" onclick="query()">点击加入素描课程</p>
+          </div>
+          <div class="button-box flex-center">
+            <p class="copy min" onclick="query()">点击加入硬笔画课程</p>
+          </div>
+          <div class="button-box flex-center">
+            <p class="copy min" onclick="query()">点击加入彩铅课程</p>
+          </div> -->
+        </div>
+        <div id="successEr">
+          <div class="erCode">
+            <img src="http://www.bybart.cn/ssm/file/showPic?fileName=4db08d3b89a6479bbdd3b335ea5952f18604.png"
+              id="tdCode" alt="">
+          </div>
+          <div class="desc">
+            <p class="discern">马上识别二维码</p>
+            <p class="plan">添加老师安排入群学习</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  $(function () {
+    $.ajax({
+      //请求方式
+      type: "POST",
+      dataType: 'json',
+      //请求的媒体类型
+      contentType: "application/json;charset=UTF-8;application/x-www-form-urlencoded;charset=UTF-8;application/pdf",
+      //请求地址
+      url: "http://www.bybart.cn/ssm/front/getOneImage",
+      //数据，json字符串
+      data: '',
+      //请求成功
+      success: function (result) {
+        console.log(result);
+        $('#background').attr("src", result.data.tdCode);
+        $('#tdCode').attr("src", result.data.background);
+      },
+      //请求失败，包含具体的错误信息
+      error: function (e) {
+        console.log(e.status);
+        console.log(e.responseText);
+      }
+    });
+  });
+
+  function query() {
+    $('#success').css('display', 'none')
+    $('#successEr').css('display', 'block')
+  }
+</script>
